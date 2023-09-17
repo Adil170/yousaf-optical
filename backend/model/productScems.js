@@ -1,49 +1,50 @@
 const mongoose = require('mongoose');
 
+// Define a schema for colors
+const colorSchema = new mongoose.Schema({
+  colorName: {
+    type: String,
+    required: true
+  },
+  colorCode: {
+    type: String,
+    required: true
+  },
+  imagePath: {
+    type: String,
+    required: true
+  },
+});
+
+// Define a schema for products
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
-  size: String,
+  size: {
+    type: String,
+    required: true
+  },
   price: {
-    type: Number,
-    required: true,
+    type: Number, // Change to Number
+    required: true
   },
-  colors: [
-    {
-      colorName: String,
-      colorCode: String,
-      imagePath: String,
-    },
-  ],
+  category: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number, // Change to Number
+    default: 4.9 // Set the default value here
+  },
+  colors: [colorSchema],
 });
 
-const sunglassesSchema = new mongoose.Schema({
-  // Additional fields specific to sunglasses, if any
-});
-
-const shadesSchema = new mongoose.Schema({
-  // Additional fields specific to shades, if any
-});
-
-const contactLensesSchema = new mongoose.Schema({
-  // Additional fields specific to contact lenses, if any
-});
-
-// Create models for each category
 const Product = mongoose.model('Product', productSchema);
-const Sunglasses = Product.discriminator('Sunglasses', sunglassesSchema);
-const Shades = Product.discriminator('Shades', shadesSchema);
-const ContactLenses = Product.discriminator('ContactLenses', contactLensesSchema);
 
-module.exports = {
-  Product,
-  Sunglasses,
-  Shades,
-  ContactLenses,
-};
+module.exports = Product;
