@@ -3,10 +3,12 @@ const express = require('express');
 const mongoose = require("mongoose");
 const productRouter = require('./routes/productRoutes');
 const  Product  = require("./model/productScems");
+const cors = require('cors')
 
 
 // Create an Express application
 const app = express();
+app.use(cors());
 app.use(express.json()); 
 require("dotenv").config();
 app.set('view engine', 'ejs');
@@ -19,7 +21,7 @@ app.use('/api', productRouter);
 
 
 // Define a route
-app.get('/', async(req, res) => {
+app.get('/api', async(req, res) => {
  
   try{
     const products = await Product.find()

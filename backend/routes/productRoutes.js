@@ -26,6 +26,15 @@ router.post("/products",  async (req, res) => {
 });
 
 // get all Products 
+router.get('/product', async(req , res ) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json({message:'success',products}); // Send JSON data as a response
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' }); // Handle errors gracefully
+  }
+})
 
 router.delete('/products/:productId', async (req, res) => {
   try {
